@@ -1,0 +1,19 @@
+@import './../../styles.scss';
+
+.start-screen {
+    background-color: #404040;
+    @include fullScreen();
+    @include dFlex($fd: column);
+    > img {
+        max-height: 80%;
+        max-width: 80%;
+    }
+}
+
+.start-label-box {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20%;
+    @include dFlex()
+}
