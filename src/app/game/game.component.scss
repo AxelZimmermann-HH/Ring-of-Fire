@@ -4,7 +4,7 @@
 .field {
     @include fullScreen();
     @include dFlex();
-    background-image: url('./../../assets/img/board.jpg')
+    background-image: url('./../../../src/assets/img/board.jpg')
 }
 
 .card-stack {

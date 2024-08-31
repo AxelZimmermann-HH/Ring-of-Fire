@@ -7,18 +7,18 @@
     <div class="card-stack">
         <!-- Stapel -->
         @for (card of [0,1,2,3,4]; track card; let i = $index) {
-            <img [ngStyle]="{'right.px': i*5}" src="./../../assets/img/cards/card_cover.png" alt="">
+            <img [ngStyle]="{'right.px': i*5}" src="assets/img/cards/card_cover.png" alt="">
         }
-        <img (click)="takeCard()" [ngClass]="'top-card'" [ngStyle]="{'right.px': 25}" src="./../../assets/img/cards/card_cover.png" alt="">
+        <img (click)="takeCard()" [ngClass]="'top-card'" [ngStyle]="{'right.px': 25}" src="assets/img/cards/card_cover.png" alt="">
         
         <!-- Played Card -->
         @for (card of game.playedCards; track card) {
-            <img src="./../../assets/img/cards/{{card}}.png" [ngClass]="'played-card'"  alt="">
+            <img src="assets/img/cards/{{card}}.png" [ngClass]="'played-card'"  alt="">
         }
         
         <!-- Flying Card -->
         @if (pickCardAnimation) {
-            <img (click)="takeCard()" [ngClass]="'pick-card'" [ngStyle]="{'right.px': 25}" src="./../../assets/img/cards/{{currentCard}}.png" alt="">
+            <img (click)="takeCard()" [ngClass]="'pick-card'" [ngStyle]="{'right.px': 25}" src="assets/img/cards/{{currentCard}}.png" alt="">
         }
     </div>
 </div>
