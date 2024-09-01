@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Game } from '../../models/game';
 import { PlayerComponent } from "../player/player.component";
 import { MatButtonModule } from '@angular/material/button';
@@ -9,7 +9,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { DialogComponent } from '../dialog/dialog.component';
 import { GameInfoComponent } from "../game-info/game-info.component";
-
+import { query, orderBy, limit, where, Firestore, collection, collectionData, doc, onSnapshot, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { CollectionReference, DocumentData } from '@angular/fire/firestore';
 
 
 @Component({
@@ -27,10 +29,15 @@ export class GameComponent {
   currentCard: string | undefined = '';
   game: Game;
   
+  firestore: Firestore = inject(Firestore)
 
   constructor(private dialog: MatDialog) {
     this.game = new Game;
     this.newGame();
+    const gamesCollection = collection(this.firestore, 'games');
+    collectionData(gamesCollection).subscribe((game) => {
+      console.log('Game update', game);
+    });
   }
 
   takeCard() {
