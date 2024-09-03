@@ -17,3 +17,9 @@
     bottom: 20%;
     @include dFlex()
 }
+
+@media (max-width: 700px) {
+    .start-label-box {
+        bottom: 30%;
+    }
+}

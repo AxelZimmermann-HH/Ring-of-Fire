@@ -1,3 +1,11 @@
 .d-none {
     display: none;
 }
+
+@media (max-width: 700px) {
+    mat-card {
+        min-height: 150px;
+        text-align: center;
+    }
+    
+}

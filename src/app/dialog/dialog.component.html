@@ -9,6 +9,10 @@
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
   <button mat-button [disabled]="name.length == 0" [mat-dialog-close]="name" cdkFocusInitial>Ok</button>
+  @if (showAdditionalButton) {
+    <button mat-button >Delete</button>
+  }
+  
 </div>
 
 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { Game } from '../../models/game';
 import { PlayerComponent } from "../player/player.component";
 import { MatButtonModule } from '@angular/material/button';
@@ -9,9 +9,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { DialogComponent } from '../dialog/dialog.component';
 import { GameInfoComponent } from "../game-info/game-info.component";
-import { query, orderBy, limit, where, Firestore, collection, collectionData, doc, onSnapshot, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
+import { query, orderBy, limit, where, Firestore, collection, collectionData, doc, onSnapshot, addDoc, updateDoc, deleteDoc, docData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { CollectionReference, DocumentData } from '@angular/fire/firestore';
+import { ActivatedRoute } from '@angular/router';
+import { EditPlayerComponent } from '../edit-player/edit-player.component';
 
 
 @Component({
@@ -25,54 +27,115 @@ import { CollectionReference, DocumentData } from '@angular/fire/firestore';
 })
 export class GameComponent {
   
-  pickCardAnimation = false;
-  currentCard: string | undefined = '';
   game: Game;
+  gameId: string = '';
   
-  firestore: Firestore = inject(Firestore)
+  firestore: Firestore = inject(Firestore);
 
-  constructor(private dialog: MatDialog) {
+  gamesCollection = collection(this.firestore, 'games');
+  screenWidth: number;
+
+
+  constructor(private route: ActivatedRoute, private dialog: MatDialog) {
+    this.screenWidth = window.innerWidth;
     this.game = new Game;
-    this.newGame();
-    const gamesCollection = collection(this.firestore, 'games');
-    collectionData(gamesCollection).subscribe((game) => {
-      console.log('Game update', game);
+
+    this.route.params.subscribe((params) => {
+      this.gameId = params['id'];  // Die ID aus der URL
+      console.log(this.gameId);
+    
+      // Greife auf das spezifische Dokument innerhalb der gamesCollection zu
+      const specificGameDoc = doc(this.gamesCollection, this.gameId);
+    
+      // Abonniere die Daten des spezifischen Dokuments
+      const specificGameData$ = docData(specificGameDoc);
+      
+      specificGameData$.subscribe((game: any) => {
+        console.log('Game update', game);
+        this.game.currentPlayer = game.currentPlayer;
+        this.game.playedCards = game.playedCards;
+        this.game.players = game.players;
+        this.game.stack = game.stack;
+        this.game.pickCardAnimation = game.pickCardAnimation;
+        this.game.currentCard = game.currentCard;
+      });
     });
+  };
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screenWidth = event.target.innerWidth;
   }
 
+  isScreenNarrow(): boolean {
+    return this.screenWidth < 700;
+  }
+
+  
+
   takeCard() {
-    if(!this.pickCardAnimation) {
-      this.currentCard = this.game.stack.pop(); // nimmt den letzten Wert aus dem Array und entfernt ihn
-      this.pickCardAnimation = true;
+    if(!this.game.pickCardAnimation) {
+      this.game.currentCard = this.game.stack.pop(); // nimmt den letzten Wert aus dem Array und entfernt ihn
+      
+      this.game.pickCardAnimation = true;
+
     }
     
     setTimeout(() => {
-      this.pickCardAnimation = false;
-      this.game.playedCards.push(this.currentCard);
+      this.game.pickCardAnimation = false;
+      this.game.playedCards.push(this.game.currentCard);
       
       this.game.currentPlayer++;
       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+
+      this.saveGame();
+    }, 1000);
+  };
+
+  editPlayer(index: number): void {
+    let dialogRef = this.dialog.open(DialogComponent, {
+      data: { name: this.game.players[index] } // Den aktuellen Namen des Spielers an den Dialog übergeben
+    });
+
+    dialogRef.afterClosed().subscribe((updatedName: string) => {
+
+      if (updatedName && updatedName.length > 0) {
+        this.game.players[index] = updatedName; // Spielername an der richtigen Position in der Liste aktualisieren
       
-        
-    }, 1000)
-
-
+        this.saveGame();
+      }
+    });
   }
 
-  newGame() {
-    this.game = new Game();
-    console.log(this.game);
+  removePlayer(name: string): void {
+    let i = this.game.players.indexOf(name); // Finde den Index des Namens im Array
+    if (i > -1) { // Überprüfe, ob der Name im Array existiert
+      this.game.players.splice(i, 1); // Entferne das Element an diesem Index
+      this.saveGame(); // Speichere das Spiel nach dem Entfernen
+    }
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogComponent);
+    let dialogRef = this.dialog.open(DialogComponent);
 
     dialogRef.afterClosed().subscribe((name:string) => {
       if (name && name.length > 0) {
         this.game.players.push(name);
+        this.saveGame();
       };
     });
+  };
+
+  saveGame() {
+    let specificGameDoc = doc(this.gamesCollection, this.gameId);
+
+    // Aktualisiere das Dokument mit den neuen Daten
+    updateDoc(specificGameDoc, this.game.toJson())
+      .then(() => {
+        console.log('Dokument erfolgreich aktualisiert');
+      })
+      .catch((error) => {
+        console.error('Fehler beim Aktualisieren des Dokuments: ', error);
+      });
   }
-}
-
-
+};

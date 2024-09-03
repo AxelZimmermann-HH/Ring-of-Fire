@@ -1,6 +1,8 @@
+<div [ngClass]="{'horizontal-scroll-container': isScreenNarrow()}" class="players-container">
 @for (player of game.players; track player; let i = $index) {
-    <app-player [ngStyle]="{'top.px': 50 + (i*130)}" [playerActive]="i == game.currentPlayer" [ngClass]="'player-position'" [name]="player"></app-player>    
+    <app-player (click)="editPlayer(i)" [ngStyle]="isScreenNarrow() ? {'left.px': 20 + (i * 130)} : {'top.px': 50 + (i * 130)}" [playerActive]="i == game.currentPlayer" [ngClass]="'player-position'" [name]="player"></app-player>    
 }
+</div>
 
 
 <div class="field">
@@ -17,13 +19,13 @@
         }
         
         <!-- Flying Card -->
-        @if (pickCardAnimation) {
-            <img (click)="takeCard()" [ngClass]="'pick-card'" [ngStyle]="{'right.px': 25}" src="assets/img/cards/{{currentCard}}.png" alt="">
+        @if (game.pickCardAnimation) {
+            <img (click)="takeCard()" [ngClass]="'pick-card'" [ngStyle]="{'right.px': 25}" src="assets/img/cards/{{game.currentCard}}.png" alt="">
         }
     </div>
 </div>
 
-<app-game-info [card]="currentCard || ''" [ngClass]="'pin-bottom'"></app-game-info>
+<app-game-info [card]="game.currentCard || ''" [ngClass]="'pin-bottom'"></app-game-info>
 
 <button (click)="openDialog()" mat-fab [ngClass]="'btn-add'">
     <mat-icon >add</mat-icon>

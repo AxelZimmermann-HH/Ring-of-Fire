@@ -16,8 +16,24 @@
 .player-position {
     position: absolute;
     right: 20px;
+    z-index: 1;
 }
 
 .player-active {
     background-color: rgba(0,128,0,1) !important;
+}
+
+app-player {
+    cursor: pointer;
+    &:hover {
+        filter: brightness(1.15);
+    }
+}
+
+@media (max-width: 700px) {
+    .player-position {
+        right: 0;
+        left: 0;
+        top: 20px;
+    }
 }

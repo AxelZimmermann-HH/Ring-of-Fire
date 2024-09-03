@@ -1,0 +1,59 @@
+[debug] [2024-09-02T18:05:14.526Z] ----------------------------------------------------------------------
+[debug] [2024-09-02T18:05:14.528Z] Command:       /usr/local/bin/node /usr/local/bin/firebase init
+[debug] [2024-09-02T18:05:14.528Z] CLI Version:   13.16.0
+[debug] [2024-09-02T18:05:14.528Z] Platform:      darwin
+[debug] [2024-09-02T18:05:14.528Z] Node Version:  v20.12.2
+[debug] [2024-09-02T18:05:14.528Z] Time:          Mon Sep 02 2024 20:05:14 GMT+0200 (Mitteleuropäische Sommerzeit)
+[debug] [2024-09-02T18:05:14.528Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-09-02T18:05:14.566Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-09-02T18:05:14.566Z] > authorizing via signed-in user (a.zimmermann@cash-online.de)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/zimmermann/Desktop/1 Coding/Modul12/ring-of-fire
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-09-02T18:05:20.158Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2024-09-02T18:05:21.230Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2024-09-02T18:05:21.230Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project ring-of-fire-838c8 (Ring of Fire) 
+[info] 
+=== Hosting Setup
+[debug] [2024-09-02T18:05:26.262Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/ring-of-fire-838c8 [none]
+[debug] [2024-09-02T18:05:27.085Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/ring-of-fire-838c8 200
+[debug] [2024-09-02T18:05:27.087Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/ring-of-fire-838c8 {"projectId":"ring-of-fire-838c8","projectNumber":"44226857872","displayName":"Ring of Fire","name":"projects/ring-of-fire-838c8","resources":{"hostingSite":"ring-of-fire-838c8"},"state":"ACTIVE","etag":"1_549cc9af-1f82-426a-9e1b-d69aebd342a3"}
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[debug] [2024-09-02T18:06:00.715Z] >>> [apiv2][query] GET https://www.gstatic.com/firebasejs/releases.json [none]
+[debug] [2024-09-02T18:06:01.107Z] <<< [apiv2][status] GET https://www.gstatic.com/firebasejs/releases.json 200
+[debug] [2024-09-02T18:06:01.108Z] <<< [apiv2][body] GET https://www.gstatic.com/firebasejs/releases.json {"current":{"version":"10.13.1","browserURL":"https://www.gstatic.com/firebasejs/10.13.1/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/10.13.1/firebase.tgz"},"live":{"version":"10.13","browserURL":"https://www.gstatic.com/firebasejs/live/10.13/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/live/10.13/firebase.tgz"},"components":{"analytics":"https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js","app":"https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js","app-check":"https://www.gstatic.com/firebasejs/10.13.1/firebase-app-check.js","auth":"https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js","auth/cordova":"https://www.gstatic.com/firebasejs/10.13.1/firebase-auth/cordova.js","auth/web-extension":"https://www.gstatic.com/firebasejs/10.13.1/firebase-auth/web-extension.js","functions":"https://www.gstatic.com/firebasejs/10.13.1/firebase-functions.js","firestore":"https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js","firestore/lite":"https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore/lite.js","installations":"https://www.gstatic.com/firebasejs/10.13.1/firebase-installations.js","storage":"https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js","performance":"https://www.gstatic.com/firebasejs/10.13.1/firebase-performance.js","remote-config":"https://www.gstatic.com/firebasejs/10.13.1/firebase-remote-config.js","messaging":"https://www.gstatic.com/firebasejs/10.13.1/firebase-messaging.js","messaging/sw":"https://www.gstatic.com/firebasejs/10.13.1/firebase-messaging/sw.js","database":"https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js","vertexai-preview":"https://www.gstatic.com/firebasejs/10.13.1/firebase-vertexai-preview.js","firestore.memory":"https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.memory.js"}}
+[info] i  Skipping write of /dist/ring-of-fire/browser/index.html 
+[info] 
+[info] i  Writing configuration info to firebase.json... 
+[debug] [2024-09-02T18:06:10.334Z] Error: EACCES: permission denied, open '/Users/zimmermann/Desktop/1 Coding/Modul12/ring-of-fire/firebase.json'
+    at Object.writeFileSync (node:fs:2342:20)
+    at Config.writeProjectFile (/usr/local/lib/node_modules/firebase-tools/lib/config.js:160:12)
+    at /usr/local/lib/node_modules/firebase-tools/lib/commands/init.js:195:16
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[error] 
+[error] Error: An unexpected error has occurred.
